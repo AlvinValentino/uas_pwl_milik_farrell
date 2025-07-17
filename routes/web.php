@@ -7,7 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\SupplierController;
-use App\Http\Controllers\Admin\Penjualan;
+use App\Http\Controllers\Kasir\PenjualanController;
 
 // Halaman utama
 Route::get('/', function () {
@@ -54,6 +54,7 @@ Route::get('/', function () {
 
     Route::prefix('penjualan')->group(function() {
         Route::get('/', [PenjualanController::class, 'index'])->name('penjualan.index');
+        Route::post('/store', [PenjualanController::class, 'store'])->name('penjualan.store');
     });
     
 // });

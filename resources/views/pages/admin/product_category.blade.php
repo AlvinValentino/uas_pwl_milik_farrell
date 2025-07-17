@@ -113,7 +113,7 @@
                 const id = $(this).data('id')
 
                 Swal.fire({
-                    title: `Yakin ingin menghapus kategori produk dengan nama `,
+                    title: `Yakin ingin menghapus kategori produk dengan nama ${namaKategori}`,
                     text: "Data ini akan dihapus permanen!",
                     icon: 'warning',
                     showCancelButton: true,

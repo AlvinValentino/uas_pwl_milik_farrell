@@ -6,16 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\ProductCategory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 
 class ProductCategoryController extends Controller
 {
-    public function index() {
+    public function index(): View {
         $dataCategory = ProductCategory::get();
 
         return view('pages.admin.product_category', ['title' => 'Product Category Management Page', 'dataCategory' => $dataCategory]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request): JsonResponse {
         try {
             $validator = Validator::make($request->all(), [
                 'nama_kategori' => 'required|string|min:1',
@@ -40,7 +42,7 @@ class ProductCategoryController extends Controller
         }
     }
 
-    public function show(int $id) {
+    public function show(int $id): JsonResponse {
         try {
             $dataProductCategory = ProductCategory::findOrFail($id);
             
@@ -57,7 +59,7 @@ class ProductCategoryController extends Controller
         }
     }
 
-    public function update(Request $request, int $id) {
+    public function update(Request $request, int $id): JsonResponse {
         try {
             $validator = Validator::make($request->all(), [
                 'nama_kategori' => 'required|string|min:1',
@@ -82,7 +84,7 @@ class ProductCategoryController extends Controller
         }
     }
 
-    public function destroy(int $id) {
+    public function destroy(int $id): JsonResponse {
         try {
             $deleteProductCategory = ProductCategory::findOrFail($id)->delete();
 

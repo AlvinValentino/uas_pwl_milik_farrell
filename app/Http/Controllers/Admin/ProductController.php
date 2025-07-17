@@ -7,17 +7,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 
 class ProductController extends Controller
 {
-    public function index() {
+    public function index(): View {
         $dataProduct = Product::with('product_category')->get();
         $dataCategory = ProductCategory::get();
 
         return view('pages.admin.product', ['title' => 'Product Management Page', 'dataProduct' => $dataProduct, 'dataCategory' => $dataCategory]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request): JsonResponse {
         try {
             $product = Product::orderBy('id', 'desc')->select('id')->first();
 
@@ -54,7 +56,7 @@ class ProductController extends Controller
         }
     }
 
-    public function show(int $id) {
+    public function show(int $id): JsonResponse {
         try {
             $dataProduct = Product::with('product_category')->findOrFail($id);
             
@@ -71,7 +73,7 @@ class ProductController extends Controller
         }
     }
 
-    public function update(Request $request, int $id) {
+    public function update(Request $request, int $id): JsonResponse {
         try {
             $validator = Validator::make($request->all(), [
                 'nama_product' => 'required|string|min:1',
@@ -99,7 +101,7 @@ class ProductController extends Controller
         }
     }
 
-    public function destroy(int $id) {
+    public function destroy(int $id): JsonResponse {
         try {
             $deleteProduct = Product::findOrFail($id)->delete();
 
