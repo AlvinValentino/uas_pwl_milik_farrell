@@ -13,7 +13,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::n1i38AFUIJQ5qhqG',
+            '_route' => 'generated::SVpKYHRm2nQkdmpp',
           ),
           1 => NULL,
           2 => 
@@ -33,7 +33,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::TK99RbjDbk8erLLP',
+            '_route' => 'generated::jNEjWBEfbCnFbKuu',
           ),
           1 => NULL,
           2 => 
@@ -400,7 +400,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/user/(?|show/([^/]++)(*:29)|update/([^/]++)(*:51)|destroy/([^/]++)(*:74))|/product(?|/(?|show/([^/]++)(*:110)|update/([^/]++)(*:133)|destroy/([^/]++)(*:157))|_category/(?|show/([^/]++)(*:192)|update/([^/]++)(*:215)|destroy/([^/]++)(*:239)))|/s(?|upplier/(?|show/([^/]++)(*:278)|update/([^/]++)(*:301)|destroy/([^/]++)(*:325))|torage/(.*)(*:345))|/laporan/(?|stok/getLaporan/([^/]++)(*:390)|penjualan/getPenjualanDetail/([^/]++)(*:435)))/?$}sDu',
+      0 => '{^(?|/user/(?|show/([^/]++)(*:29)|update/([^/]++)(*:51)|destroy/([^/]++)(*:74))|/p(?|roduct(?|/(?|show/([^/]++)(*:113)|update/([^/]++)(*:136)|destroy/([^/]++)(*:160))|_category/(?|show/([^/]++)(*:195)|update/([^/]++)(*:218)|destroy/([^/]++)(*:242)))|urchase_order/getPODetail/([^/]++)(*:286))|/s(?|upplier/(?|show/([^/]++)(*:324)|update/([^/]++)(*:347)|destroy/([^/]++)(*:371))|torage/(.*)(*:391))|/laporan/(?|stok/getLaporan/([^/]++)(*:436)|penjualan/getPenjualanDetail/([^/]++)(*:481)))/?$}sDu',
     ),
     3 => 
     array (
@@ -471,7 +471,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      110 => 
+      113 => 
       array (
         0 => 
         array (
@@ -494,7 +494,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      133 => 
+      136 => 
       array (
         0 => 
         array (
@@ -516,7 +516,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      157 => 
+      160 => 
       array (
         0 => 
         array (
@@ -538,7 +538,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      192 => 
+      195 => 
       array (
         0 => 
         array (
@@ -561,7 +561,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      215 => 
+      218 => 
       array (
         0 => 
         array (
@@ -583,7 +583,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      239 => 
+      242 => 
       array (
         0 => 
         array (
@@ -605,7 +605,30 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      278 => 
+      286 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'purchase_order.getPODetail',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      324 => 
       array (
         0 => 
         array (
@@ -628,7 +651,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      301 => 
+      347 => 
       array (
         0 => 
         array (
@@ -650,7 +673,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      325 => 
+      371 => 
       array (
         0 => 
         array (
@@ -672,7 +695,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      345 => 
+      391 => 
       array (
         0 => 
         array (
@@ -695,7 +718,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      390 => 
+      436 => 
       array (
         0 => 
         array (
@@ -718,7 +741,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      435 => 
+      481 => 
       array (
         0 => 
         array (
@@ -756,7 +779,7 @@ app('router')->setCompiledRoutes(
   ),
   'attributes' => 
   array (
-    'generated::n1i38AFUIJQ5qhqG' => 
+    'generated::SVpKYHRm2nQkdmpp' => 
     array (
       'methods' => 
       array (
@@ -766,7 +789,7 @@ app('router')->setCompiledRoutes(
       'uri' => 'up',
       'action' => 
       array (
-        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:830:"function () {
+        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:821:"function () {
                     $exception = null;
 
                     try {
@@ -781,11 +804,11 @@ app('router')->setCompiledRoutes(
                         $exception = $e->getMessage();
                     }
 
-                    return response(\\Illuminate\\Support\\Facades\\View::file(\'D:\\\\Alvin\\\\Testing\\\\inventory\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Configuration\'.\'/../resources/health-up.blade.php\', [
+                    return response(\\Illuminate\\Support\\Facades\\View::file(\'D:\\\\Project\\\\farrell\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Configuration\'.\'/../resources/health-up.blade.php\', [
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
-                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"000000000000035a0000000000000000";}}',
-        'as' => 'generated::n1i38AFUIJQ5qhqG',
+                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"00000000000003330000000000000000";}}',
+        'as' => 'generated::SVpKYHRm2nQkdmpp',
       ),
       'fallback' => false,
       'defaults' => 
@@ -801,7 +824,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::TK99RbjDbk8erLLP' => 
+    'generated::jNEjWBEfbCnFbKuu' => 
     array (
       'methods' => 
       array (
@@ -817,13 +840,13 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:47:"function () {
     return \\redirect(\'/login\');
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000003540000000000000000";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"000000000000032d0000000000000000";}}',
         'namespace' => NULL,
         'prefix' => '',
         'where' => 
         array (
         ),
-        'as' => 'generated::TK99RbjDbk8erLLP',
+        'as' => 'generated::jNEjWBEfbCnFbKuu',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1885,6 +1908,44 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'purchase_order.getPODetail' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'purchase_order/getPODetail/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'App\\Http\\Middleware\\JwtMiddleware',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Pembelian\\PurchaseOrderController@getPODetail',
+        'controller' => 'App\\Http\\Controllers\\Pembelian\\PurchaseOrderController@getPODetail',
+        'namespace' => NULL,
+        'prefix' => '/purchase_order',
+        'where' => 
+        array (
+        ),
+        'as' => 'purchase_order.getPODetail',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'laporan_stok.index' => 
     array (
       'methods' => 
@@ -2047,13 +2108,13 @@ app('router')->setCompiledRoutes(
       'uri' => 'storage/{path}',
       'action' => 
       array (
-        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:3:{s:4:"disk";s:5:"local";s:6:"config";a:5:{s:6:"driver";s:5:"local";s:4:"root";s:46:"D:\\Alvin\\Testing\\inventory\\storage\\app/private";s:5:"serve";b:1;s:5:"throw";b:0;s:6:"report";b:0;}s:12:"isProduction";b:0;}s:8:"function";s:323:"function (\\Illuminate\\Http\\Request $request, string $path) use ($disk, $config, $isProduction) {
+        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:3:{s:4:"disk";s:5:"local";s:6:"config";a:5:{s:6:"driver";s:5:"local";s:4:"root";s:38:"D:\\Project\\farrell\\storage\\app/private";s:5:"serve";b:1;s:5:"throw";b:0;s:6:"report";b:0;}s:12:"isProduction";b:0;}s:8:"function";s:323:"function (\\Illuminate\\Http\\Request $request, string $path) use ($disk, $config, $isProduction) {
                     return (new \\Illuminate\\Filesystem\\ServeFile(
                         $disk,
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"000000000000035b0000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"00000000000003340000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

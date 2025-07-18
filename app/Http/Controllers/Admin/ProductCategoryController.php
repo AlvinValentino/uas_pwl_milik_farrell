@@ -6,15 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\ProductCategory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ProductCategoryController extends Controller
 {
-    public function index(): View {
+    public function index() {
         $dataCategory = ProductCategory::get();
-        return view('pages.admin.product_category', ['title' => 'Product Category Management Page', 'dataCategory' => $dataCategory]);
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if($user->roles == 'Pembelian') return redirect('purchase_order');
+        else if($user->roles == 'Kasir') return redirect('penjualan');
+
+        return view('pages.admin.product_category', ['title' => 'Product Category Management Page', 'dataCategory' => $dataCategory, 'user' => $user]);
     }
 
     public function store(Request $request): JsonResponse {

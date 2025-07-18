@@ -7,17 +7,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 use App\Models\ProductCategory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ProductController extends Controller
 {
-    public function index(): View {
+    public function index() {
         $dataProduct = Product::with('product_category')->get();
         $dataCategory = ProductCategory::get();
+        $user = JWTAuth::parseToken()->authenticate();
 
-        return view('pages.admin.product', ['title' => 'Product Management Page', 'dataProduct' => $dataProduct, 'dataCategory' => $dataCategory]);
+        if($user->roles == 'Pembelian') return redirect('purchase_order');
+        else if($user->roles == 'Kasir') return redirect('penjualan');
+
+        return view('pages.admin.product', ['title' => 'Product Management Page', 'dataProduct' => $dataProduct, 'dataCategory' => $dataCategory, 'user' => $user]);
     }
 
     public function store(Request $request): JsonResponse {
@@ -46,7 +49,6 @@ class ProductController extends Controller
                 'product_category_id' => $request->product_category_id,
                 'harga_beli' => $request->harga_beli,
                 'harga_jual' => $request->harga_jual,
-                'stock' => 100
             ]);
     
             if(!$createProduct) {

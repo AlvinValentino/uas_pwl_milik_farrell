@@ -3,17 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
-    public function index(): View {
+    public function index() {
         $dataUser = User::get();
-        return view('pages.admin.user', ['title' => 'User Management Page', 'dataUser' => $dataUser]);
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if($user->roles == 'Pembelian') return redirect('purchase_order');
+        else if($user->roles == 'Kasir') return redirect('penjualan');
+        
+        return view('pages.admin.user', ['title' => 'User Management Page', 'dataUser' => $dataUser, 'user' => $user]);
     }
 
     public function store(Request $request): JsonResponse {
@@ -21,7 +26,7 @@ class UserController extends Controller
             $validator = Validator::make($request->all(), [
                 'username' => 'required|string|unique:users',
                 'name' => 'required|string|min:1',
-                'roles' => 'required|sting|min:1',
+                'roles' => 'required|string|min:1',
                 'password' => 'required|string|min:1',
             ]);
     

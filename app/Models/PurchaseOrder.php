@@ -10,14 +10,13 @@ class PurchaseOrder extends Model
 
     protected $table = 'purchase_orders';
 
-    public static function statuses()
-    {
-        return [
-            'draft' => 'Draft',
-            'ordered' => 'Ordered',
-            'partial' => 'Partial',
-            'received' => 'Received',
-            'closed' => 'Closed',
-        ];
+    public $timestamps = false;
+
+    public function supplier() {
+        return $this->belongsTo(Supplier::class);
+    }
+
+    public function purchase_order_detail() {
+        return $this->hasMany(PurchaseOrderDetail::class);
     }
 }

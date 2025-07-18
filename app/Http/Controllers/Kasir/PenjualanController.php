@@ -8,16 +8,19 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Penjualan;
 use App\Models\PenjualanDetail;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PenjualanController extends Controller
 {
-    public function index(): View {
+    public function index() {
         $products = Product::where('stock', '>', '0')->get();
-        return view('pages.kasir.index', ['title' => 'Sales Page', 'products' => $products]);
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if($user->roles == 'Pembelian') return redirect('purchase_order');
+        
+        return view('pages.kasir.index', ['title' => 'Sales Page', 'products' => $products, 'user' => $user]);
     }
 
     public function store(Request $request): JsonResponse {
@@ -25,15 +28,15 @@ class PenjualanController extends Controller
             $penjualan = Penjualan::orderBy('id', 'desc')->select('id')->first();
 
             if($penjualan) {
-                $request['nomor_penjualan'] = 'FJ-' . sprintf('%04d', (int) $penjualan->id + 1);
+                $nomorPenjualan = 'FJ-' . sprintf('%04d', (int) $penjualan->id + 1);
             } else {
-                $request['nomor_penjualan'] = 'FJ-0001';
+                $nomorPenjualan = 'FJ-0001';
             }
 
-            DB::transaction(function () use($request) {
+            DB::transaction(function () use($request, $nomorPenjualan) {
                 $createPenjualan = Penjualan::create([
                     'user_id' => 1,
-                    'nomor_penjualan' => $request->nomor_penjualan,
+                    'nomor_penjualan' => $nomorPenjualan,
                     'tanggal_jual' => now(),
                     'grandtotal' => $request->grandtotal,
                 ]);
@@ -56,7 +59,7 @@ class PenjualanController extends Controller
 
                     LaporanStok::create([
                         'product_id' => $product->id,
-                        'referensi' => $request->nomor_penjualan,
+                        'referensi' => $nomorPenjualan,
                         'tipe_pergerakan' => 'Keluar',
                         'tanggal_transaksi' => now(),
                         'stok_awal' => $product->stock,

@@ -10,10 +10,11 @@
             <h2 class="text-xl font-semibold mb-4 text-gray-700">Daftar Produk</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 @foreach ($products as $product)
-                    <div class="border border-gray-200 bg-white shadow-sm rounded-lg p-4 hover:bg-blue-50 cursor-pointer product-item transition transform hover:scale-105"
+                    <div class="border border-gray-200 bg-white shadow-sm rounded-lg p-4 hover:bg-blue-50 cursor-pointer product-item transition transform hover:scale-105 h-[16rem]"
                          data-id="{{ $product->id }}"
                          data-name="{{ $product->nama_product }}"
                          data-price="{{ $product->harga_jual }}">
+                         <img src="storage/{{ $product->foto_product }}" alt="foto_produk" class="h-[9rem] w-full rounded-lg mb-4">
                         <h3 class="font-medium text-gray-800">{{ $product->kode_product }} - {{ $product->nama_product }}</h3>
                         <p class="text-sm text-gray-600 mt-1">Rp {{ number_format($product->harga_jual, 0, ',', '.') }}</p>
                     </div>

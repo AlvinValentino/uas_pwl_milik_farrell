@@ -40,7 +40,7 @@
 
                     <!-- Foto Produk -->
                     <div>
-                        <label for="foto_product" class="block text-sm font-medium text-gray-700">Foto Produk</label>
+                        <label for="foto_product" class="block text-sm font-medium text-gray-700">Foto Produk <small class="text-red-400 ml-1">*max 2mb</small></label>
                         <input type="file" name="foto_product" id="foto_product"
                             class="block w-full px-4 py-2 mt-1 text-sm text-gray-500 border border-gray-300 rounded-md shadow-sm cursor-pointer
                             file:mr-4 file:py-1 file:px-4

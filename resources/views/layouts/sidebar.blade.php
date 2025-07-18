@@ -3,15 +3,15 @@
     <div>
         <div class="flex items-center justify-between mb-8">
             <div class="flex items-center space-x-3">
-                <div aria-hidden="true" class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl select-none shadow-md">
-                    W
+                <div aria-hidden="true" class="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xl select-none shadow-md">
+                    L
                 </div>
                 <div>
                     <h1 class="text-gray-900 font-bold text-lg leading-tight">
-                        widelab
+                        Larisin
                     </h1>
                     <p class="text-indigo-600 text-xs font-semibold uppercase tracking-wider">
-                        Team Plan
+                        APLIKASI POS
                     </p>
                 </div>
             </div>
@@ -33,6 +33,7 @@
 
         <!-- Menu Section -->
         <nav class="space-y-1">
+            @if($user->roles == 'Admin')
             <div class="mb-6">
                 <div class="flex items-center justify-between mb-3 text-gray-500 font-semibold text-xs uppercase tracking-wide">
                     <span>MASTER DATA</span>
@@ -71,12 +72,14 @@
                     </li>
                 </ul>
             </div>
+            @endif
 
             <div class="mb-6">
                 <div class="flex items-center justify-between mb-3 text-gray-500 font-semibold text-xs uppercase tracking-wide">
                     <span>TRANSAKSI</span>
                 </div>
                 <ul class="space-y-1 text-gray-700 text-sm font-medium">
+                    @if($user->roles == 'Admin' || $user->roles == 'Kasir')
                     <li>
                         <a href="/penjualan" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200
                             @if(Request::is('penjualan')){{ 'bg-indigo-50 text-indigo-600' }}@else{{ 'hover:bg-gray-100 text-gray-700' }}@endif">
@@ -84,7 +87,8 @@
                             <span>Penjualan</span>
                         </a>
                     </li>
-
+                    @endif
+                    @if($user->roles == 'Admin' || $user->roles == 'Pembelian')
                     <li>
                         <a href="/purchase_order" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200
                             @if(Request::is('purchase_order')){{ 'bg-indigo-50 text-indigo-600' }}@else{{ 'hover:bg-gray-100 text-gray-700' }}@endif">
@@ -92,9 +96,10 @@
                             <span>Pembelian</span>
                         </a>
                     </li>
+                    @endif
                 </ul>
             </div>
-
+            @if($user->roles == 'Admin')
             <div class="mb-6">
                 <div class="flex items-center justify-between mb-3 text-gray-500 font-semibold text-xs uppercase tracking-wide">
                     <span>LAPORAN</span>
@@ -117,6 +122,7 @@
                     </li>
                 </ul>
             </div>
+            @endif
 
             <!-- Another Section (optional) -->
             <div class="mt-6">

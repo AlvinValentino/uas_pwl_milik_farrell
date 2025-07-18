@@ -6,16 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Supplier;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class SupplierController extends Controller
 {
-    public function index(): View {
+    public function index() {
         $dataSupplier = Supplier::get();
+        $user = JWTAuth::parseToken()->authenticate();
 
-        return view('pages.admin.supplier', ['title' => 'Supplier Management Page', 'dataSupplier' => $dataSupplier]);
+        if($user->roles == 'Pembelian') return redirect('purchase_order');
+        else if($user->roles == 'Kasir') return redirect('penjualan');
+
+        return view('pages.admin.supplier', ['title' => 'Supplier Management Page', 'dataSupplier' => $dataSupplier, 'user' => $user]);
     }
 
     public function store(Request $request): JsonResponse {

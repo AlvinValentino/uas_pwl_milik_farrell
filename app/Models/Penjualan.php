@@ -15,4 +15,8 @@ class Penjualan extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    public function penjualan_detail() {
+        return $this->hasMany(PenjualanDetail::class);
+    }
 }

@@ -67,6 +67,7 @@ Route::middleware([JWTMiddleware::class])->group(function() {
     Route::prefix('purchase_order')->group(function() {
         Route::get('/', [PurchaseOrderController::class, 'index'])->name('purchase_order.index');
         Route::post('/store', [PurchaseOrderController::class, 'store'])->name('purchase_order.store');
+        Route::get('/getPODetail/{id}', [PurchaseOrderController::class, 'getPODetail'])->name('purchase_order.getPODetail');
     });
     
     Route::prefix('laporan')->group(function() {

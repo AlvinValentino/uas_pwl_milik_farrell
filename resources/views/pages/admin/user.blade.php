@@ -87,26 +87,26 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 text-center">
                         <?php $no = 1; ?>
-                        @forelse($dataUser as $user)
+                        @forelse($dataUser as $userd)
                         <tr class="hover:bg-gray-50 transition-colors duration-150">
                             <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ $no++ }}
                             </td>
                             <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $user->username }}
+                                {{ $userd->username }}
                             </td>   
                             <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $user->name }}
+                                {{ $userd->name }}
                             </td>   
                             <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $user->roles }}
+                                {{ $userd->roles }}
                             </td>   
                             <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500 space-x-2 flex justify-center">
-                                <button type="button" data-id="{{ $user->id }}"
+                                <button type="button" data-id="{{ $userd->id }}"
                                     class="btn-edit inline-flex cursor-pointer items-center px-3 py-1 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 transition">
                                     <i class="fas fa-edit mr-1"></i> Edit
                                 </button>
-                                <button type="button" data-id="{{ $user->id }}" data-username="{{ $user->username }}"
+                                <button type="button" data-id="{{ $userd->id }}" data-username="{{ $userd->username }}"
                                     class="btn-delete inline-flex cursor-pointer items-center px-3 py-1 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition">
                                     <i class="fas fa-trash-alt mr-1"></i> Hapus
                                 </button>

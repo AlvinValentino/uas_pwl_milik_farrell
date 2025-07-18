@@ -5,16 +5,19 @@ namespace App\Http\Controllers\Admin\Laporan;
 use App\Http\Controllers\Controller;
 use App\Models\Penjualan;
 use App\Models\PenjualanDetail;
-use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 
 class LaporanPenjualanController extends Controller
 {
-    public function index(): View {
+    public function index() {
         $dataPenjualan = Penjualan::with('user')->get();
-        return view('pages.admin.laporan.penjualan', ['title' => 'Laporan Penjualan Page', 'dataPenjualan' => $dataPenjualan]);
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if($user->roles == 'Pembelian') return redirect('purchase_order');
+        else if($user->roles == 'Kasir') return redirect('penjualan');
+
+        return view('pages.admin.laporan.penjualan', ['title' => 'Laporan Penjualan Page', 'dataPenjualan' => $dataPenjualan, 'user' => $user]);
     }
 
     public function getPenjualanDetail(int $id): JsonResponse {

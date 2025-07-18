@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nomor_purchase_order')->unique();
             $table->foreignId('supplier_id')->constrained('suppliers')->onUpdate('cascade')->onDelete('cascade');
-            $table->enum('status', ['Draft', 'Ordered', 'Partial', 'Received', 'Canceled']);
             $table->date('tanggal_order');
             $table->integer('grandtotal');
         });
@@ -24,7 +23,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('purchase_order_id')->constrained('purchase_orders')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
-            $table->date('qty');
+            $table->integer('qty');
             $table->integer('subtotal');
         });
     }
