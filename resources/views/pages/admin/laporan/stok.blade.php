@@ -149,6 +149,7 @@
                 const productId = $(this).data('id')
                 const kodeProduk = $(this).data('kode')
                 const namaProduk = $(this).data('nama')
+                $('#bodyDetail').empty()
 
                 $('.titleModalDetail').text(`Laporan Stok Produk (${kodeProduk} - ${namaProduk})`)
 
@@ -160,8 +161,6 @@
                             let no = 1;
 
                             showNotification('Success', res.message, res.status)
-                            $('#bodyDetail').empty()
-                        
                             $.each(res.data, function(key, value) {
                                 let bodyTable = `
                                     <tr class="hover:bg-gray-50 transition-colors duration-150">

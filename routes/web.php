@@ -64,7 +64,10 @@ Route::middleware([JWTMiddleware::class])->group(function() {
         Route::post('/store', [PenjualanController::class, 'store'])->name('penjualan.store');
     });
     
-    Route::resource('purchase_orders', PurchaseOrderController::class)->names('purchase_order');
+    Route::prefix('purchase_order')->group(function() {
+        Route::get('/', [PurchaseOrderController::class, 'index'])->name('purchase_order.index');
+        Route::post('/store', [PurchaseOrderController::class, 'store'])->name('purchase_order.store');
+    });
     
     Route::prefix('laporan')->group(function() {
         Route::get('/stok', [LaporanStokController::class, 'index'])->name('laporan_stok.index');
@@ -73,9 +76,4 @@ Route::middleware([JWTMiddleware::class])->group(function() {
         Route::get('/penjualan', [LaporanPenjualanController::class, 'index'])->name('laporan_penjualan.index');
         Route::get('/penjualan/getPenjualanDetail/{id}', [LaporanPenjualanController::class, 'getPenjualanDetail'])->name('laporan_penjualan.getPenjualanDetail');
     });
-    
-        // Route::prefix('purchase_order')->group(function() {
-        //     Route::get('/', [PembelianController::class, 'index'])->name('purchase_order.index');
-        //     Route::post('/store', [PembelianController::class, 'store'])->name('purchase_order.store');
-        // });
 });

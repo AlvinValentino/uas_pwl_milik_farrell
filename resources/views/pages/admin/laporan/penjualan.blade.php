@@ -66,7 +66,7 @@
                         @empty
                             <tr>
                                 <td colspan="6" class="px-3 py-4 text-center text-sm text-gray-500 hover:bg-gray-50 transition-colors duration-150 tracking-wider">
-                                    Tidak ada data produk
+                                    Tidak ada data laporan penjualan
                                 </td>
                             </tr>
                         @endforelse

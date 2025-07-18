@@ -22,17 +22,10 @@ class ProductController extends Controller
 
     public function store(Request $request): JsonResponse {
         try {
-            $product = Product::orderBy('id', 'desc')->select('id')->first();
-
-            if($product) {
-                $request['kode_product'] = 'SKU-' . sprintf('%04d', (int) $product->id + 1);
-            } else {
-                $request['kode_product'] = 'SKU-0001';
-            }
-
             $validator = Validator::make($request->all(), [
                 'kode_product' => 'required|string|unique:products',
                 'nama_product' => 'required|string|min:1',
+                'foto_product' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'product_category_id' => 'required|integer|min:1',
                 'harga_beli' => 'required|integer|min:1',
                 'harga_jual' => 'required|integer|min:1',
@@ -41,8 +34,20 @@ class ProductController extends Controller
             if($validator->fails()) {
                 return response()->json(['status' => 'error', 'message' => 'Validasi gagal'], 400);
             }
+
+            if ($request->hasFile('foto_product')) {
+                $path = $request->file('foto_product')->store('products', 'public');
+            }
     
-            $createProduct = Product::create($validator->validated());
+            $createProduct = Product::create([
+                'kode_product' => $request->kode_product,
+                'nama_product' => $request->nama_product,
+                'foto_product' => $path ?? null,
+                'product_category_id' => $request->product_category_id,
+                'harga_beli' => $request->harga_beli,
+                'harga_jual' => $request->harga_jual,
+                'stock' => 100
+            ]);
     
             if(!$createProduct) {
                 return response()->json(['status' => 'error', 'message' => 'Data produk gagal dibuat!'], 422);

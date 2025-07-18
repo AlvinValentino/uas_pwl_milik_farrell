@@ -54,7 +54,7 @@
                     </div>
 
                     <button type="submit"
-                            class="w-full bg-indigo-600 text-white py-2 rounded-md hover:from-green-600 hover:to-teal-600 transition duration-300 shadow-md">
+                            class="w-full cursor-pointer bg-indigo-600 text-white py-2 rounded-md hover:from-green-600 hover:to-teal-600 transition duration-300 shadow-md">
                         Simpan Transaksi
                     </button>
                 </form>
@@ -75,13 +75,13 @@ $(document).ready(function () {
         let total = 0;
 
         if (cart.length === 0) {
-            $('#cart-empty-message').append(`<span id="cart-empty-message" class="cart-span text-sm text-gray-500">Tidak ada produk yang ditambahkan!</span>`);
             $('#cart-total').text('Rp 0');
             $('#change').text('Rp 0');
             return;
         }   
 
         $.each(cart, function (index, item) {
+            item.qty = item.qty || 1;
             total += item.price * item.qty;
 
             const itemHtml = `
@@ -116,6 +116,7 @@ $(document).ready(function () {
         const existing = cart.find(item => item.id === id);
 
         if (existing) {
+            existing.qty = existing.qty || 1;
             existing.qty += 1;
         } else {
             cart.push({ id, name, price, qty: 1 });
@@ -128,13 +129,16 @@ $(document).ready(function () {
         const index = $(this).data('index');
         const delta = parseInt($(this).data('action'));
 
-        cart[index].qty += delta;
+        if (cart[index]) {
+            cart[index].qty = cart[index].qty || 1;
+            cart[index].qty += delta;
 
-        if (cart[index].qty <= 0) {
-            cart.splice(index, 1);
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+
+            renderCart();
         }
-        
-        renderCart();
     });
 
     $('#pos-form').on('submit', function (e) {

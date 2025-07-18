@@ -16,7 +16,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class PenjualanController extends Controller
 {
     public function index(): View {
-        $products = Product::all();
+        $products = Product::where('stock', '>', '0')->get();
         return view('pages.kasir.index', ['title' => 'Sales Page', 'products' => $products]);
     }
 
@@ -42,24 +42,30 @@ class PenjualanController extends Controller
                     throw new \Exception('Gagal membuat data penjualan');
                 }
 
-                foreach($request->products as $product) {
-                    $product = Product::where('id', $product['id'])->select('id')->first();
+                foreach($request->products as $item) {
+                    $qty = (int) $item['qty'];
+                    $price = (int) $item['price'];
+                    $product = Product::findOrFail($item['id']);
 
                     PenjualanDetail::create([
                         'penjualan_id' => $createPenjualan->id,
-                        'product_id' => $product['id'],
-                        'qty' => $product['qty'],
-                        'subtotal' => $product['price'] * $product['qty']
+                        'product_id' => $product->id,
+                        'qty' => $qty,
+                        'subtotal' => $price * $qty
                     ]);
 
                     LaporanStok::create([
-                        'product_id' => $product['id'],
+                        'product_id' => $product->id,
                         'referensi' => $request->nomor_penjualan,
                         'tipe_pergerakan' => 'Keluar',
                         'tanggal_transaksi' => now(),
                         'stok_awal' => $product->stock,
-                        'qty' => $product['qty'],
-                        'stok_akhir' => $product->stock - $product['qty']
+                        'qty' => $qty,
+                        'stok_akhir' => $product->stock - $qty
+                    ]);
+
+                    $product->update([
+                        'stock' => $product->stock - $qty
                     ]);
                 }
             });

@@ -1,4 +1,4 @@
-<aside aria-label="Sidebar" class="w-[15rem] h-full fixed left-0 top-0 bottom-0 bg-gradient-to-b from-white to-gray-50 border border-gray-200 p-6 flex flex-col shadow-lg">
+<aside aria-label="Sidebar" class="w-[15rem] h-full fixed left-0 top-0 bottom-0 overflow-y-auto bg-gradient-to-b from-white to-gray-50 border border-gray-200 p-6 flex flex-col shadow-lg">
     <!-- Header -->
     <div>
         <div class="flex items-center justify-between mb-8">
@@ -86,9 +86,9 @@
                     </li>
 
                     <li>
-                        <a href="/purchase_orders" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200
-                            @if(Request::is('purchase_orders')){{ 'bg-indigo-50 text-indigo-600' }}@else{{ 'hover:bg-gray-100 text-gray-700' }}@endif">
-                            <i class="fas fa-clipboard-list @if(Request::is('purchase_orders')){{ 'text-indigo-600' }}@else{{ 'text-gray-500' }}@endif"></i>
+                        <a href="/purchase_order" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200
+                            @if(Request::is('purchase_order')){{ 'bg-indigo-50 text-indigo-600' }}@else{{ 'hover:bg-gray-100 text-gray-700' }}@endif">
+                            <i class="fas fa-clipboard-list @if(Request::is('purchase_order')){{ 'text-indigo-600' }}@else{{ 'text-gray-500' }}@endif"></i>
                             <span>Pembelian</span>
                         </a>
                     </li>
@@ -134,20 +134,6 @@
                 </ul>
             </div>
         </nav>
-    </div>
-
-    <!-- Footer - User Info -->
-    <div class="pt-6 mt-auto border-t border-gray-200">
-        <div class="flex items-center space-x-3">
-            <img alt="User Avatar" class="w-10 h-10 rounded-full object-cover ring-1 ring-gray-200" src="https://storage.googleapis.com/a1aa/image/7748178d-6586-4f6d-0d5a-c6495f44ca3a.jpg " />
-            <div class="text-sm truncate">
-                <p class="font-semibold text-gray-900 truncate">Sandra Marx</p>
-                <p class="text-gray-500 truncate text-xs">sandra@mail.com</p>
-            </div>
-            <button class="ml-auto text-gray-400 hover:text-gray-600 focus:outline-none">
-                <i class="fas fa-cog"></i>
-            </button>
-        </div>
     </div>
 </aside>
 

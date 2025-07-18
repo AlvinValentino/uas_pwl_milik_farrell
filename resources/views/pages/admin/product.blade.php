@@ -7,17 +7,25 @@
 
         <!-- Form Input -->
         <div class="bg-white shadow rounded-lg p-6 mb-6">
-            <form action="{{ route('product.store') }}" id="productForm" method="POST" class="space-y-4">
+            <form action="{{ route('product.store') }}" id="productForm" method="POST" enctype="multipart/form-data" class="space-y-4">
                 @csrf
 
                 <input type="hidden" name="id" id="id">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Kode Produk -->
+                    <div>
+                        <label for="kode_product" class="block text-sm font-medium text-gray-700">Kode Produk</label>
+                        <input type="text" name="kode_product" id="kode_product"
+                            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    </div>
+
                     <!-- Nama Produk -->
                     <div>
                         <label for="nama_product" class="block text-sm font-medium text-gray-700">Nama Produk</label>
                         <input type="text" name="nama_product" id="nama_product"
                             class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                     </div>
+
                     <!-- Kategori Produk -->
                     <div>
                         <label for="product_category_id" class="block text-sm font-medium text-gray-700">Kategori Produk</label>
@@ -29,6 +37,19 @@
                             @endforeach
                         </select>
                     </div>
+
+                    <!-- Foto Produk -->
+                    <div>
+                        <label for="foto_product" class="block text-sm font-medium text-gray-700">Foto Produk</label>
+                        <input type="file" name="foto_product" id="foto_product"
+                            class="block w-full px-4 py-2 mt-1 text-sm text-gray-500 border border-gray-300 rounded-md shadow-sm cursor-pointer
+                            file:mr-4 file:py-1 file:px-4
+                            file:rounded-md file:border-0
+                            file:text-xs file:font-semibold
+                            file:bg-indigo-50 file:text-indigo-700
+                            hover:file:bg-indigo-100" accept="image/*" required>
+                    </div>
+
                     <!-- Harga Beli -->
                     <div>
                         <label for="harga_beli" class="block text-sm font-medium text-gray-700">Harga Beli</label>
@@ -119,12 +140,16 @@
                                 {{ $product->product_category->nama_kategori }}
                             </td>
                             <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $product->harga_beli }}
+                                Rp. {{ number_format($product->harga_beli, 0, ',', '.') }}
                             </td>
                             <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $product->harga_jual }}
+                                Rp. {{ number_format($product->harga_jual, 0, ',', '.') }}
                             </td>
                             <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500 space-x-2 flex justify-center">
+                                <button type="button" data-path="{{ $product->foto_product }}"
+                                    class="btn-detail inline-flex cursor-pointer items-center px-3 py-1 bg-yellow-100 text-yellow-700 rounded-md hover:bg-yellow-200 transition">
+                                    <i class="fas fa-eye mr-1"></i> Detail
+                                </button>
                                 <button type="button" data-id="{{ $product->id }}"
                                     class="btn-edit inline-flex cursor-pointer items-center px-3 py-1 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 transition">
                                     <i class="fas fa-edit mr-1"></i> Edit
@@ -167,6 +192,8 @@
                     success: function(res) {
                         showNotification('Success', res.message, res.status)
                         $('#id').val(res.data.id)
+                        $('#kode_product').attr('disabled', true)
+                        $('#kode_product').val(res.data.kode_product)
                         $('#nama_product').val(res.data.nama_product)
                         $('#product_category_id').val(res.data.product_category_id)
                         $('#harga_beli').val(res.data.harga_beli)
@@ -211,16 +238,30 @@
                 });
             })
 
+            $('.btn-detail').on('click', function() {
+                const pathFoto = $(this).data('path')
+
+                Swal.fire({
+                    title: 'Foto Produk',
+                    imageUrl: `{{ asset('storage/${pathFoto}') }}`,
+                    imageWidth: 300,
+                    imageAlt: 'Foto Produk',
+                    showConfirmButton: true,
+                });
+            })
+
             $('#productForm').on('submit', function(e) {
                 e.preventDefault()
     
-                let formData = $(this).serialize()
+                let formData = new FormData(this);
                 let id = $('#id').val()
     
                 $.ajax({
                     url: typeForm == 'store' ? $(this).attr('action') : "{{ route('product.update', ':id') }}".replace(':id', id),
                     method: typeForm == 'store' ? 'POST' : 'PUT',
                     data: formData,
+                    contentType: false,
+                    processData: false,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('harga_beli');
             $table->integer('harga_jual');
             $table->integer('stock')->default(0);
+            $table->string('foto_product')->nullable();
 
             $table->foreignId('product_category_id')->constrained('product_categories')->onUpdate('cascade')->onDelete('cascade');;
         });
