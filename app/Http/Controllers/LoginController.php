@@ -5,13 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LoginController extends Controller
 {
-    public function showLoginForm()
-    {
+    public function showLoginForm(Request $request) {
+        $token = $request->cookie('token');
+        if($token && JWTAuth::setToken($token)->check()) {
+            return redirect('/dashboard');
+        }
+
         return view('auth.login', ['title' => 'Login Page']);
     }
 
@@ -28,19 +34,20 @@ class LoginController extends Controller
     
             $user = User::where('username', $request->username)->first();
     
-            if (!$user || !\Hash::check($request->password, $user->password)) {
+            if (!$user || !Hash::check($request->password, $user->password)) {
                 return response()->json(['status' => 'error', 'message' => 'Invalid credentials'], 401);
             }
     
             try {
                 $token = JWTAuth::fromUser($user);
+                $request->attributes->set('user', $user);
             } catch (JWTException $e) {
                 return response()->json(['status' => 'error', 'message' => 'Could not create token'], 500);
             }
     
             $cookie = cookie('token', $token, 1440, null, null, false, true);
     
-            return response()->json(['status' => 'success', 'message' => 'Login success'], 200)->withCookie($cookie);
+            return response()->json(['status' => 'success', 'message' => 'Login berhasil!'], 200)->withCookie($cookie);
         } catch(\Exception $e) {
             return response()->json([
                 'status' => 'error',
@@ -56,12 +63,13 @@ class LoginController extends Controller
         if ($token) {
             try {
                 JWTAuth::invalidate($token);
-                return response()->json(['message' => 'Successfully logged out']);
+                $cookie = Cookie::forget('token');
+                return response()->json(['status' => 'success', 'message' => 'Logout berhasil!'], 200)->withCookie($cookie);
             } catch (\Exception $e) {
-                return response()->json(['error' => 'Invalid token'], 401);
+                return response()->json(['status' => 'error', 'message' => 'Invalid token'], 401);
             }
         }
 
-        return response()->json(['error' => 'Token not provided'], 400);
+        return response()->json(['status' => 'error', 'message' => 'Token not provided'], 400);
     }
 }

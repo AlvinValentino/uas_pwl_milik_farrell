@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Supplier;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class SupplierController extends Controller
 {
@@ -103,7 +104,7 @@ class SupplierController extends Controller
         try {
             $deleteSupplier = Supplier::findOrFail($id)->delete();
 
-            if(!$deleteProduct) {
+            if(!$deleteSupplier) {
                 return response()->json(['status' => 'error', 'message' => 'Data supplier gagal dihapus!'], 422);
             }
 

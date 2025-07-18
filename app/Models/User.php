@@ -24,7 +24,7 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'name',
         'username',
-        'bagian',
+        'roles',
         'password',
     ];
 
@@ -49,14 +49,9 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
-    public function masuk() {
-        return $this->hasOne('App\Models\masuk');
+    public function penjualan() {
+        return $this->hasMany(Penjualan::class);
     }
-
-    public function keluar() {
-        return $this->hasOne('App\Models\keluar');
-    }
-    
 
     public function getJWTIdentifier()
     {

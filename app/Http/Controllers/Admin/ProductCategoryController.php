@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\ProductCategory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ProductCategoryController extends Controller
 {
     public function index(): View {
         $dataCategory = ProductCategory::get();
-
         return view('pages.admin.product_category', ['title' => 'Product Category Management Page', 'dataCategory' => $dataCategory]);
     }
 

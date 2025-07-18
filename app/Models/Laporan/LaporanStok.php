@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Laporan;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
-class PenjualanDetail extends Model
+class LaporanStok extends Model
 {
     protected $guarded = ['id'];
 
-    protected $table = 'penjualan_detail';
+    protected $table = 'laporan_stok';
 
     public $timestamps = false;
 

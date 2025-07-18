@@ -80,16 +80,39 @@
                     <li>
                         <a href="/penjualan" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200
                             @if(Request::is('penjualan')){{ 'bg-indigo-50 text-indigo-600' }}@else{{ 'hover:bg-gray-100 text-gray-700' }}@endif">
-                            <i class="fas fa-boxes @if(Request::is('penjualan')){{ 'text-indigo-600' }}@else{{ 'text-gray-500' }}@endif"></i>
+                            <i class="fas fa-shopping-cart @if(Request::is('penjualan')){{ 'text-indigo-600' }}@else{{ 'text-gray-500' }}@endif"></i>
                             <span>Penjualan</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="/pembelian" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200
-                            @if(Request::is('pembelian')){{ 'bg-indigo-50 text-indigo-600' }}@else{{ 'hover:bg-gray-100 text-gray-700' }}@endif">
-                            <i class="fas fa-tags @if(Request::is('pembelian')){{ 'text-indigo-600' }}@else{{ 'text-gray-500' }}@endif"></i>
+                        <a href="/purchase_orders" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200
+                            @if(Request::is('purchase_orders')){{ 'bg-indigo-50 text-indigo-600' }}@else{{ 'hover:bg-gray-100 text-gray-700' }}@endif">
+                            <i class="fas fa-clipboard-list @if(Request::is('purchase_orders')){{ 'text-indigo-600' }}@else{{ 'text-gray-500' }}@endif"></i>
                             <span>Pembelian</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-3 text-gray-500 font-semibold text-xs uppercase tracking-wide">
+                    <span>LAPORAN</span>
+                </div>
+                <ul class="space-y-1 text-gray-700 text-sm font-medium">
+                    <li>
+                        <a href="/laporan/stok" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200
+                            @if(Request::is('laporan/stok')){{ 'bg-indigo-50 text-indigo-600' }}@else{{ 'hover:bg-gray-100 text-gray-700' }}@endif">
+                            <i class="fas fa-warehouse @if(Request::is('laporan/stok')){{ 'text-indigo-600' }}@else{{ 'text-gray-500' }}@endif"></i>
+                            <span>Laporan Stok</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/laporan/penjualan" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200
+                            @if(Request::is('laporan/penjualan')){{ 'bg-indigo-50 text-indigo-600' }}@else{{ 'hover:bg-gray-100 text-gray-700' }}@endif">
+                            <i class="fas fa-chart-line @if(Request::is('laporan/penjualan')){{ 'text-indigo-600' }}@else{{ 'text-gray-500' }}@endif"></i>
+                            <span>Laporan Penjualan</span>
                         </a>
                     </li>
                 </ul>
@@ -103,7 +126,7 @@
 
                 <ul class="space-y-1 text-gray-700 text-sm font-medium">
                     <li>
-                        <a href="/logout" class="flex items-center space-x-2 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors duration-200">
+                        <a class="btn-logout flex cursor-pointer items-center space-x-2 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors duration-200">
                             <i class="fas fa-sign-out-alt text-red-600"></i>
                             <span>Logout</span>
                         </a>
@@ -127,6 +150,27 @@
         </div>
     </div>
 </aside>
+
+<script>
+    $(document).ready(function() {
+        $('.btn-logout').on('click', function() {
+            $.ajax({
+                url: "{{ route('logout') }}",
+                method: 'GET',
+                success: function(res) {
+                    if(res.status == 'success') {
+                        showNotification('Success', res.message, res.status).then(() => {
+                            window.location.reload(false)
+                        });
+                    }
+                },
+                error: function(err) {
+                    showNotification('Error', err.responseJSON.message, err.responseJSON.status)
+                }
+            })
+        })
+    })
+</script>
 
 <style>
 /* Custom Scrollbar */
